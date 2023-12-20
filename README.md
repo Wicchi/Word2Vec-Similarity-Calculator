@@ -17,8 +17,8 @@ Make sure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git clone https://github.com/Wicchi/Galytix_tech_task.git
+   cd Galytix_tech_tas
    ```
 
 2. Install the required dependencies:
