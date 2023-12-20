@@ -2,7 +2,6 @@ from download_preprocess import DownloadPreprocess
 from data_processing import DataProcessor
 import argparse
 
-# main.py
 
 def main():
     parser = argparse.ArgumentParser(description='Process Word2Vec embeddings and calculate similarity.')
