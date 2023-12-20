@@ -1,0 +1,1 @@
+# Galytix_tech_task
