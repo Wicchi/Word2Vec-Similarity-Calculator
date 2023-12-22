@@ -1,5 +1,7 @@
 import requests
 from pathlib import Path
+import gensim.downloader as api
+import gensim
 from gensim.models import KeyedVectors
 
 class DownloadPreprocess:
@@ -20,11 +22,13 @@ class DownloadPreprocess:
             print(f"Error during download: {e}")
 
     def preprocess_word2vec_vectors(self):
-        try:
-            wv = KeyedVectors.load_word2vec_format(self.output_file, binary=True, limit=1000000)
-            wv.save_word2vec_format('vectors.csv')
-        except Exception as e:
-            print(f"Error during preprocessing: {e}")
+        api.load(self.url)
+
+        # Load the Word2Vec vectors directly
+        wv = KeyedVectors.load_word2vec_format(self.output_file, binary=True, limit=1000000)
+
+        # Save the vectors as a flat file
+        wv.save_word2vec_format('vectors.csv')
 
     def download_and_preprocess(self):
         try:
