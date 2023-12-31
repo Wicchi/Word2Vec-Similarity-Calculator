@@ -64,4 +64,4 @@ You can customize the project's behavior using command-line options:
 Example:
 
 ```bash
-docker exec -it <container_id> python main.py --mode batch --use_tf --word_embeddings_file /app/data/word2vec.bin --phrases_file /app/data/phrases.csv
+docker exec -it <container_id> python main.py --mode batch --use_tf --word_embeddings_file data/GoogleNews-vectors-negative300.bin.gz --phrases_file /data/phrases.csv
