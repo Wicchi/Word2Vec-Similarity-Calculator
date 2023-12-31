@@ -6,7 +6,7 @@ import logging
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,  # Set the desired log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )
@@ -22,12 +22,17 @@ def main():
             url='https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM',
             output_file=word_embeddings_file
         )
-        download_preprocess.download_and_preprocess()
+
+        # Set use_tf to True to use Word2Vec from TensorFlow
+        download_preprocess.download_and_preprocess(use_tf=True)
 
     # Create an ArgumentParser for additional options
     parser = argparse.ArgumentParser(description='Process Word2Vec embeddings and calculate similarity.')
-    parser.add_argument('--mode', choices=['batch', 'on_the_fly'], default='on_the_fly', help='Execution mode: batch or on-the-fly (default: batch)')
-    parser.add_argument('word_embeddings_file', default=word_embeddings_file, type=str, help='Path to the Word2Vec embeddings file')
+    parser.add_argument('--mode', choices=['batch', 'on_the_fly'], default='on_the_fly',
+                        help='Execution mode: batch or on-the-fly (default: batch)')
+    parser.add_argument('--use_tf', action='store_true', help='Use Word2Vec from TensorFlow')
+    parser.add_argument('word_embeddings_file', default=word_embeddings_file, type=str,
+                        help='Path to the Word2Vec embeddings file')
     parser.add_argument('phrases_file', default=phrases_file, type=str, help='Path to the phrases file')
     try:
         args = parser.parse_args()
@@ -40,8 +45,9 @@ def main():
 
     # Log the input arguments
     logger.info("Word Embeddings File: %s", args.word_embeddings_file)
-    logger.info("Phrases File: %s", args.phrases_file)  # Corrected attribute name
+    logger.info("Phrases File: %s", args.phrases_file)
     logger.info("Execution Mode: %s", args.mode)
+    logger.info("Use TensorFlow Word2Vec: %s", args.use_tf)
 
     # Initialize DataProcessor with the specified files
     processor = DataProcessor(word_embeddings_file=args.word_embeddings_file, phrases_file=args.phrases_file)
