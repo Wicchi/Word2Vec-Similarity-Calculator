@@ -1,75 +1,67 @@
-# Project
-## Overview
+# Word2Vec Similarity Calculator
 
-This project is designed to process Word2Vec embeddings and calculate similarity between phrases. It supports both batch processing and on-the-fly user input. The provided scripts download and preprocess Word2Vec embeddings, and then utilize them to find similar phrases based on cosine similarity.
+This project allows you to calculate semantic similarity between phrases using Word2Vec embeddings. It provides two execution modes: batch and on-the-fly.
 
 ## Getting Started
 
+These instructions will help you set up and run the project on your local machine.
+
 ### Prerequisites
 
-Make sure you have the following installed:
+- Docker installed on your machine
+- Python 3.8
 
-- Python (>=3.6)
-- Pip
+### Installing
 
-### Installation
+1. Clone this repository:
 
-1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/word2vec-similarity.git
+    cd word2vec-similarity
+    ```
 
-   ```bash
-   git clone https://github.com/Wicchi/Galytix_tech_task.git
-   cd Galytix_tech_task
-   ```
+2. Build the Docker image:
 
-2. Install the required dependencies:
+    ```bash
+    docker build -t word2vec_project .
+    ```
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+3. Run the Docker container:
+
+    ```bash
+    docker run -p 4000:80 word2vec_project
+    ```
 
 ## Usage
 
-### Batch Processing
+The project supports two execution modes:
 
-To perform batch processing, use the following command:
+1. **Batch Mode:**
+   - Calculates similarity using a batch approach.
+   - Run the following command:
+
+        ```bash
+        docker exec -it <container_id> python main.py --mode batch
+        ```
+
+2. **On-the-Fly Mode:**
+   - Allows you to input a phrase and find the closest match.
+   - Run the following command:
+
+        ```bash
+        docker exec -it <container_id> python main.py --mode on_the_fly
+        ```
+
+## Configuration
+
+You can customize the project's behavior using command-line options:
+
+- `--mode`: Choose between 'batch' and 'on_the_fly'.
+- `--use_tf`: Use TensorFlow Word2Vec.
+- `word_embeddings_file`: Path to the Word2Vec embeddings file.
+- `phrases_file`: Path to the phrases file.
+
+Example:
 
 ```bash
-python main.py <word_embeddings_file> <phrases_file> --mode batch
-```
-
-Replace `<word_embeddings_file>` with the path to your Word2Vec embeddings file and `<phrases_file>` with the path to your phrases file.
-
-### On-the-Fly Processing
-
-For on-the-fly processing, run:
-
-```bash
-python main.py <word_embeddings_file> <phrases_file> --mode on_the_fly
-```
-
-You will be prompted to enter a phrase, and the system will find the closest match based on the provided input.
-
-## Project Structure
-
-- **main.py**: Main script for executing batch or on-the-fly processing.
-- **data_processing.py**: Module containing the `DataProcessor` class for calculating similarity.
-- **download_preprocess.py**: Module for downloading and preprocessing Word2Vec embeddings.
-- **requirements.txt**: List of project dependencies.
-- **vectors.csv**: Flat file containing Word2Vec embeddings after preprocessing.
-
-## Dependencies
-
-- gensim
-- pandas
-- numpy
-- scipy
-- nltk
-- requests
-
-## Contributing
-
-Feel free to contribute by opening issues or pull requests. All contributions are welcome!
-
----
-
-Adjust the sections and content according to your project's specific details. The example assumes a simple project structure and provides basic usage instructions.
+docker exec -it <container_id> python main.py --mode batch --use_tf --word_embeddings_file data/GoogleNews-vectors-negative300.bin.gz --phrases_file /data/phrases.csv
