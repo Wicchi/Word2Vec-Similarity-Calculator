@@ -65,3 +65,7 @@ Example:
 
 ```bash
 docker exec -it <container_id> python main.py --mode batch --use_tf --word_embeddings_file data/GoogleNews-vectors-negative300.bin.gz --phrases_file /data/phrases.csv
+```
+
+
+Based on task from Galytix
